@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>承閎股份有限公司 — Metal Ceiling Series</title>
+
+<style>
+/* ============================================================
+   GLOBAL — MATCH FULL SITE THEME
+============================================================ */
+html { scroll-padding-top:140px; }
+body {
+    margin:0;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    line-height:1.75;
+    background:#f7faff;
+    color:#222;
+    overflow-x:hidden;
+    transition:0.3s ease;
+}
+
+/* Fade-up animation */
+.fade-up { opacity:0; animation:fadeUp .9s ease forwards; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(35px);} to{opacity:1; transform:translateY(0);} }
+
+/* Floating circles */
+.circle {
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle,#ffffffaa,#2760A833);
+    filter:blur(4px);
+}
+.c1 { width:180px;height:180px; top:80px; left:12%; animation:floatAnim 6s infinite; }
+.c2 { width:240px;height:240px; bottom:60px; right:12%; animation:floatAnim 8s infinite; }
+.c3 { width:140px;height:140px; bottom:20%; left:20%; animation:floatAnim 7s infinite; }
+
+@keyframes floatAnim {
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+    100%{transform:translateY(0);}
+}
+
+/* ============================================================
+   HEADER — GLASS
+============================================================ */
+header {
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+    padding:10px 40px;
+    height:92px;
+    display:flex;
+    align-items:center;
+    position:sticky;
+    top:0;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 6px 25px rgba(0,0,0,0.15);
+    z-index:1000;
+}
+header img {
+    height:72px; width:72px;
+    border-radius:16px;
+    object-fit:cover;
+    margin-right:20px;
+    cursor:pointer;
+    box-shadow:0 8px 22px rgba(39,96,168,0.35);
+}
+header h1 {
+    margin:0;
+    font-size:30px;
+    font-weight:800;
+    color:#1F4F89;
+}
+
+/* Language Button */
+.lang-btn {
+    padding:10px 20px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 6px 20px rgba(39,96,168,0.35);
+    transition:.25s;
+}
+.lang-btn:hover { transform:translateY(-3px); }
+
+/* ============================================================
+   POPDOWN NAV BAR
+============================================================ */
+#navBar {
+    background:linear-gradient(to right,#2760A8,#1F4F89);
+    width:100%;
+    position:fixed;
+    top:110px; left:0;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    opacity:0;
+    height:0;
+    overflow:hidden;
+    transition:0.25s ease;
+    z-index:900;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+#navBar.visible { opacity:1; height:60px; padding:14px 0; }
+.nav-item {
+    color:white;
+    cursor:pointer;
+    font-size:19px;
+    font-weight:650;
+    transition:.2s;
+}
+.nav-item:hover { transform:scale(1.18); }
+
+/* ============================================================
+   SIDE BACK BUTTON
+============================================================ */
+.side-back {
+    position:fixed;
+    left:0;
+    top:120px;
+    width:36px;
+    height:70px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    border-radius:0 14px 14px 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    z-index:2000;
+    transition:0.25s ease;
+}
+.side-back:hover { transform:translateX(5px); }
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+#hero {
+    text-align:center;
+    padding:160px 20px 140px;
+    background:linear-gradient(135deg,#eaf1ff,#f7faff 40%,#e2ecff);
+    position:relative;
+    overflow:hidden;
+}
+#hero h1 {
+    font-size:46px;
+    font-weight:900;
+    color:#1F4F89;
+}
+#hero p {
+    font-size:20px;
+    max-width:700px;
+    margin:auto;
+    opacity:.75;
+}
+
+/* ============================================================
+   CONTENT
+============================================================ */
+.container {
+    max-width:1200px;
+    margin:auto;
+    padding:60px;
+}
+
+.mcs-img {
+    width:100%;
+    max-width:900px;
+    display:block;
+    margin:40px auto;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* Divider */
+.divider {
+    border:none;
+    border-top:1px solid #ccc;
+    width:80%;
+    margin:60px auto;
+}
+
+/* FOOTER */
+footer {
+    background:#003066;
+    color:white;
+    text-align:center;
+    padding:28px;
+    margin-top:60px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACK BUTTON -->
+<div class="side-back" onclick="location.href='index.html'">←</div>
+
+<!-- HEADER -->
+<header>
+    <img src="logo.jpeg" onclick="location.href='index.html'">
+    <div>
+        <h1 data-lang="zh">流明天花系列</h1>
+        <h1 data-lang="en">Metal Ceiling Series</h1>
+    </div>
+
+    <!-- LANGUAGE TOGGLE ONLY (dark mode removed) -->
+    <div style="margin-left:auto;">
+        <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">English</button>
+    </div>
+</header>
+
+<!-- POPDOWN NAV -->
+<div id="navBar">
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html'">首頁</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html'">Home</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#features'">產品介紹</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#features'">Products</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#about'">關於我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#about'">About Us</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#contact'">聯絡我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#contact'">Contact</div>
+</div>
+
+<!-- HERO -->
+<div id="hero" class="fade-up">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+
+    <h1 data-lang="zh">流明天花板金屬系列</h1>
+    <h1 data-lang="en">Metal Expanded Ceiling System</h1>
+
+    <p data-lang="zh">金屬網天花：通風、耐候、造型多變，適用室內外。</p>
+    <p data-lang="en">Expanded metal ceiling panels designed for ventilation, durability, and aesthetic flexibility.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="container fade-up">
+
+<!-- SECTION 1 -->
+<section>
+    <h2 data-lang="zh">方格網</h2>
+    <h2 data-lang="en">Standard Expanded Metal Mesh</h2>
+    <img src="mcs1.png" class="mcs-img">
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 2 -->
+<section>
+    <h2 data-lang="zh">菱形網</h2>
+    <h2 data-lang="en">Flattened Expanded Metal Mesh</h2>
+    <img src="mcs2.png" class="mcs-img">
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 3 -->
+<section>
+    <h2 data-lang="zh">魚形網</h2>
+    <h2 data-lang="en">Decorative Expanded Metal Mesh</h2>
+    <img src="mcs3.png" class="mcs-img">
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p data-lang="zh">© 2025 承閎股份有限公司 版權所有</p>
+    <p data-lang="en">© 2025 ChangHun Steel Inc. All Rights Reserved.</p>
+</footer>
+
+<!-- JS -->
+<script>
+/* LANGUAGE */
+let currentLang="zh";
+function applyLanguage(lang){
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+        el.style.display =
+            (el.getAttribute("data-lang")===lang) ? "" : "none";
+    });
+}
+function toggleLanguage(){
+    currentLang = (currentLang==="zh") ? "en" : "zh";
+    document.getElementById("langBtn").innerText =
+        currentLang==="zh" ? "English" : "中文";
+    applyLanguage(currentLang);
+}
+
+/* INIT */
+document.addEventListener("DOMContentLoaded",()=>{
+    applyLanguage("zh");
+});
+
+/* POPDOWN NAV */
+window.addEventListener("DOMContentLoaded",()=>{
+    const header=document.querySelector("header");
+    const nav=document.getElementById("navBar");
+    let hover=false;
+
+    function show(){ nav.classList.add("visible"); }
+    function hide(){ setTimeout(()=>{ if(!hover) nav.classList.remove("visible"); },150); }
+
+    header.addEventListener("mouseenter",()=>{ hover=true; show(); });
+    header.addEventListener("mouseleave",()=>{ hover=false; hide(); });
+    nav.addEventListener("mouseenter",()=>{ hover=true; show(); });
+    nav.addEventListener("mouseleave",()=>{ hover=false; hide(); });
+});
+</script>
+
+</body>
+</html>

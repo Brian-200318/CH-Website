@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>承閎股份有限公司 — Concealed Grid Ceiling Series</title>
+
+<style>
+/* ============================================================
+   GLOBAL — MATCH FULL SITE THEME
+============================================================ */
+html { scroll-padding-top: 140px; }
+body {
+    margin:0;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background:#f7faff;
+    color:#222;
+    line-height:1.75;
+    overflow-x:hidden;
+    transition:0.3s ease;
+}
+
+.fade-up { opacity:0; animation:fadeUp .9s ease forwards; }
+@keyframes fadeUp { from{opacity:0; transform:translateY(35px);} to{opacity:1; transform:translateY(0);} }
+
+/* Floating circles */
+.circle {
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle,#ffffffaa,#2760A833);
+    filter:blur(4px);
+}
+.c1 { width:180px; height:180px; top:80px; left:12%; animation:floatAnim 6s infinite; }
+.c2 { width:240px; height:240px; bottom:60px; right:12%; animation:floatAnim 8s infinite; }
+.c3 { width:140px; height:140px; bottom:22%; left:20%; animation:floatAnim 7s infinite; }
+
+@keyframes floatAnim {
+    0% { transform:translateY(0); }
+    50% { transform:translateY(-12px); }
+    100% { transform:translateY(0); }
+}
+
+/* ============================================================
+   HEADER — GLASS STYLE
+============================================================ */
+header {
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+    padding:10px 40px;
+    height:92px;
+    display:flex;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 6px 25px rgba(0,0,0,0.15);
+}
+header img {
+    height:72px; width:72px;
+    border-radius:16px;
+    object-fit:cover;
+    margin-right:20px;
+    cursor:pointer;
+    background:white;
+    box-shadow:0 5px 20px rgba(39,96,168,0.35);
+}
+header h1 {
+    margin:0;
+    font-size:30px;
+    font-weight:800;
+    color:#1F4F89;
+}
+
+/* LANGUAGE BUTTON */
+.lang-btn {
+    padding:10px 20px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 6px 20px rgba(39,96,168,0.35);
+    transition:.25s;
+}
+.lang-btn:hover { transform:translateY(-3px); }
+
+/* ============================================================
+   POPDOWN NAV
+============================================================ */
+#navBar {
+    background:linear-gradient(to right,#2760A8,#1F4F89);
+    width:100%;
+    position:fixed;
+    top:110px; 
+    left:0;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    opacity:0;
+    height:0;
+    overflow:hidden;
+    transition:height .25s, opacity .25s;
+    z-index:900;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+#navBar.visible { 
+    opacity:1; 
+    height:60px; 
+    padding:14px 0; 
+}
+.nav-item {
+    color:white;
+    cursor:pointer;
+    font-size:19px;
+    font-weight:650;
+    transition:0.2s;
+}
+.nav-item:hover { transform:scale(1.18); }
+
+/* ============================================================
+   BACK BUTTON
+============================================================ */
+.side-back {
+    position:fixed;
+    top:120px; left:0;
+    width:36px; height:70px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:0 14px 14px 0;
+    cursor:pointer;
+    z-index:2000;
+    transition:.25s;
+}
+.side-back:hover { transform:translateX(5px); }
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+#hero {
+    text-align:center;
+    padding:160px 20px 140px;
+    background:linear-gradient(135deg,#eaf1ff,#f7faff 40%,#e2ecff);
+    position:relative;
+    overflow:hidden;
+}
+#hero h1 {
+    font-size:46px;
+    font-weight:900;
+    color:#1F4F89;
+}
+#hero p {
+    font-size:20px;
+    opacity:0.75;
+    max-width:700px;
+    margin:auto;
+}
+
+/* ============================================================
+   CONTENT
+============================================================ */
+.container {
+    max-width:1200px;
+    margin:auto;
+    padding:60px;
+}
+
+.img-wide {
+    width:100%;
+    max-width:900px;
+    display:block;
+    margin:30px auto;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* Divider */
+.divider {
+    border:none;
+    border-top:1px solid #ccc;
+    width:90%;
+    margin:60px auto;
+}
+
+/* FOOTER */
+footer {
+    background:#003066;
+    color:white;
+    text-align:center;
+    padding:28px;
+    margin-top:60px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACK BUTTON -->
+<div class="side-back" onclick="location.href='index.html'">←</div>
+
+<!-- HEADER -->
+<header>
+    <img src="logo.jpeg" onclick="location.href='index.html'">
+
+    <div>
+        <h1 data-lang="zh">暗架天花系列</h1>
+        <h1 data-lang="en">Concealed Grid Ceiling Series</h1>
+    </div>
+
+    <!-- ONLY LANGUAGE BUTTON -->
+    <div style="margin-left:auto;">
+        <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">English</button>
+    </div>
+</header>
+
+<!-- POPDOWN NAV -->
+<div id="navBar">
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html'">首頁</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html'">Home</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#features'">產品介紹</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#features'">Products</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#about'">關於我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#about'">About Us</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#contact'">聯絡我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#contact'">Contact</div>
+</div>
+
+<!-- HERO -->
+<div id="hero" class="fade-up">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+
+    <h1 data-lang="zh">暗架天花 Concealed Grid</h1>
+    <h1 data-lang="en">Concealed Grid Ceiling System</h1>
+
+    <p data-lang="zh">卡榫式組合、施工快速、精密度高、節省配件與工時。</p>
+    <p data-lang="en">High-precision locking design, fast installation, fewer accessories, and improved quality.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="container fade-up">
+
+<section>
+    <h2 data-lang="zh">產品特性 Features</h2>
+    <h2 data-lang="en">Features</h2>
+
+    <p data-lang="zh">
+        ● 暗支撐架附卡榫，可快速卡合主架。<br>
+        ● 安裝骨架與封板可同步進行，提高效率一倍。<br>
+        ● 每呎六對卡榫，定位快速精準。<br>
+        ● 符合 ASTM C635-00 均佈載重試驗。<br>
+    </p>
+
+    <p data-lang="en">
+        ● Concealed furring bar locks quickly onto main channel.<br>
+        ● Frame installation & board fixing can run simultaneously (2× faster).<br>
+        ● Six precision locking tabs per foot ensure fast, accurate alignment.<br>
+        ● Meets ASTM C635-00 uniform load requirements.<br>
+    </p>
+
+    <h3 data-lang="zh"><b>施工效率提升一倍以上</b></h3>
+    <h3 data-lang="en"><b>Double Installation Efficiency</b></h3>
+
+    <p data-lang="zh">適用3’×6’，4’×8’，1.2×2.4m板材，整平品質佳。</p>
+    <p data-lang="en">Suitable for 3’×6’, 4’×8’, and 1.2×2.4m boards with excellent flatness.</p>
+
+    <h3 data-lang="zh"><b>產品精密，提高施工品質</b></h3>
+    <h3 data-lang="en"><b>High Precision for Better Quality</b></h3>
+
+    <p data-lang="zh">加工精準、組裝密合度高。</p>
+    <p data-lang="en">Precisely manufactured with tight assembly and stability.</p>
+
+    <h3 data-lang="zh"><b>選擇多樣式</b></h3>
+    <h3 data-lang="en"><b>Multiple Configuration Options</b></h3>
+
+    <p data-lang="zh">提供多種載重/厚度對應不同天花需求。</p>
+    <p data-lang="en">Supports various loads & installation methods.</p>
+
+    <h2 data-lang="zh">適用範圍 Applications</h2>
+    <h2 data-lang="en">Applications</h2>
+
+    <p data-lang="zh">辦公室、醫院、百貨、餐廳、住宅等。</p>
+    <p data-lang="en">Offices, hospitals, retail, restaurants, residences.</p>
+
+    <img src="cgcs1.png" class="img-wide">
+    <img src="cgcs2.png" class="img-wide">
+
+    <h3 data-lang="zh">每坪用料分析</h3>
+    <h3 data-lang="en">Material Usage Analysis</h3>
+
+    <img src="cgcs3.png" class="img-wide">
+
+    <h3 data-lang="zh">暗架組合方式與容許載重</h3>
+    <h3 data-lang="en">Assembly & Loading Capacity</h3>
+
+    <img src="cgcs4.png" class="img-wide">
+
+    <h3 data-lang="zh">暗架天花組合示意圖</h3>
+    <h3 data-lang="en">System Assembly Overview</h3>
+
+    <img src="cgcs5.png" class="img-wide">
+</section>
+
+<hr class="divider">
+
+<section>
+    <h2 data-lang="zh">卡U鋼板／防颱型企口板</h2>
+    <h2 data-lang="en">U-Type & Anti-Typhoon Strip Ceiling</h2>
+
+    <p data-lang="zh">
+        ● 防火、防潮、防鏽蝕、不退色。<br>
+        ● 表面塗裝均勻、多色可選。<br>
+        ● 安裝快速、維護容易。<br>
+    </p>
+
+    <p data-lang="en">
+        ● Fire-resistant, moisture-proof, corrosion-proof, fade-proof.<br>
+        ● Uniform premium coating with multiple color options.<br>
+        ● Quick installation and easy maintenance.<br>
+    </p>
+
+    <h3 data-lang="zh">適用範圍</h3>
+    <h3 data-lang="en">Applications</h3>
+
+    <p data-lang="zh">禮堂、商場、車站、廠房、陽台等。</p>
+    <p data-lang="en">Auditoriums, malls, stations, factories, balconies.</p>
+
+    <h3 data-lang="zh">卡U鋼板</h3>
+    <h3 data-lang="en">U-Type Strip Ceiling</h3>
+
+    <img src="cgcs6.png" class="img-wide">
+
+    <h3 data-lang="zh">防颱型企口板</h3>
+    <h3 data-lang="en">Anti-Typhoon Type Strip Ceiling</h3>
+
+    <img src="cgcs7.png" class="img-wide">
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p data-lang="zh">© 2025 承閎股份有限公司 版權所有</p>
+    <p data-lang="en">© 2025 ChangHun Steel Inc. All Rights Reserved.</p>
+</footer>
+
+<!-- JS -->
+<script>
+/* LANGUAGE */
+let currentLang="zh";
+function applyLanguage(lang){
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+        el.style.display = (el.getAttribute("data-lang")===lang) ? "" : "none";
+    });
+}
+function toggleLanguage(){
+    currentLang = (currentLang==="zh" ? "en" : "zh");
+    document.getElementById("langBtn").innerText = 
+        (currentLang==="zh" ? "English" : "中文");
+    applyLanguage(currentLang);
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+    applyLanguage("zh");
+});
+
+/* POPDOWN NAV */
+window.addEventListener("DOMContentLoaded",()=>{
+    const header=document.querySelector("header");
+    const nav=document.getElementById("navBar");
+    let hover=false;
+
+    function show(){ nav.classList.add("visible"); }
+    function hide(){ setTimeout(()=>{ if(!hover) nav.classList.remove("visible"); },150); }
+
+    header.addEventListener("mouseenter",()=>{ hover=true; show(); });
+    header.addEventListener("mouseleave",()=>{ hover=false; hide(); });
+    nav.addEventListener("mouseenter",()=>{ hover=true; show(); });
+    nav.addEventListener("mouseleave",()=>{ hover=false; hide(); });
+});
+</script>
+
+</body>
+</html>

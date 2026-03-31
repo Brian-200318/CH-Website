@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>承閎股份有限公司 — Partition Frame System - Accessories & Construction</title>
+
+<style>
+/* ============================================================
+   GLOBAL — MATCH INDEX / P1 THEME
+============================================================ */
+html { scroll-padding-top: 140px; }
+body {
+    margin:0;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background:#f7faff;
+    color:#222;
+    line-height:1.75;
+    overflow-x:hidden;
+    transition:0.3s ease;
+}
+
+/* Fade-up animation */
+.fade-up {
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(35px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+/* Floating circles */
+.circle {
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle, #ffffffaa, #2760A833);
+    filter:blur(4px);
+}
+.c1 { width:180px;height:180px; top:80px; left:12%; animation:floatAnim 6s infinite; }
+.c2 { width:240px;height:240px; bottom:60px; right:12%; animation:floatAnim 8s infinite; }
+.c3 { width:140px;height:140px; bottom:22%; left:20%; animation:floatAnim 7s infinite; }
+
+@keyframes floatAnim {
+    0% { transform:translateY(0px); }
+    50% { transform:translateY(-12px); }
+    100% { transform:translateY(0px); }
+}
+
+/* ============================================================
+   HEADER — GLASS STYLE
+============================================================ */
+header {
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+    padding:10px 40px;
+    height:92px;
+    display:flex;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 6px 25px rgba(0,0,0,0.15);
+}
+header img {
+    height:72px; width:72px;
+    border-radius:16px;
+    object-fit:cover;
+    margin-right:20px;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(39,96,168,0.35);
+    background:white;
+}
+header h1 {
+    margin:0;
+    font-size:30px;
+    font-weight:750;
+    color:#1F4F89;
+}
+
+/* LANGUAGE BUTTON */
+.lang-btn {
+    padding:10px 20px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 6px 20px rgba(39,96,168,0.35);
+    transition:.2s;
+}
+.lang-btn:hover { transform:translateY(-3px); }
+
+/* POPDOWN NAV */
+#navBar {
+    background:linear-gradient(to right, #2760A8, #1F4F89);
+    width:100%;
+    position:fixed;
+    top:110px; left:0;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    opacity:0; height:0; overflow:hidden;
+    transition:height .25s, opacity .25s;
+    z-index:900;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+#navBar.visible { opacity:1; height:60px; padding:14px 0; }
+.nav-item {
+    color:white; cursor:pointer;
+    font-size:19px; font-weight:650;
+    transition:0.2s;
+}
+.nav-item:hover { transform:scale(1.18); }
+
+/* BACK BUTTON */
+.side-back {
+    position:fixed;
+    top:120px;
+    left:0;
+    width:36px;
+    height:70px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:0 14px 14px 0;
+    cursor:pointer;
+    z-index:2000;
+    transition:0.25s;
+}
+.side-back:hover { transform:translateX(5px); }
+
+/* HERO */
+#hero {
+    text-align:center;
+    padding:160px 20px 140px;
+    background:linear-gradient(135deg,#eaf1ff,#f7faff 40%,#e2ecff);
+    position:relative;
+    overflow:hidden;
+}
+#hero h1 {
+    font-size:44px;
+    font-weight:800;
+    color:#1F4F89;
+}
+#hero p {
+    font-size:20px;
+    opacity:0.75;
+    max-width:720px;
+    margin:auto;
+}
+
+/* CONTENT */
+.container {
+    max-width:1200px;
+    margin:auto;
+    padding:60px 60px;
+}
+
+section { margin-bottom:40px; }
+h2 { margin-top:0; color:#1F4F89; font-size:28px; }
+
+/* IMAGES */
+.full-img {
+    width:100%;
+    max-width:1000px;
+    display:block;
+    margin:30px auto;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+}
+
+.divider {
+    border:none;
+    border-top:1px solid #dddddd;
+    margin:40px 0;
+}
+
+footer {
+    background:#003066;
+    color:white;
+    text-align:center;
+    padding:28px;
+    margin-top:60px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDE BACK BUTTON -->
+<div class="side-back" onclick="location.href='index.html'">←</div>
+
+<!-- HEADER -->
+<header>
+    <img src="logo.jpeg" onclick="location.href='index.html'">
+
+    <div>
+        <h1 data-lang="zh">隔間輕鋼架－配件與施工</h1>
+        <h1 data-lang="en">Partition Frame System – Accessories & Construction</h1>
+    </div>
+
+    <div style="margin-left:auto;">
+        <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">English</button>
+    </div>
+</header>
+
+<!-- NAV -->
+<div id="navBar">
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html'">首頁</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html'">Home</div>
+
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#features'">產品介紹</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#features'">Products</div>
+
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#about'">關於我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#about'">About Us</div>
+
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#contact'">聯絡我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#contact'">Contact</div>
+</div>
+
+<!-- HERO -->
+<div id="hero" class="fade-up">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+
+    <h1 data-lang="zh">隔間輕鋼架－配件與施工</h1>
+    <h1 data-lang="en">Partition Frame System – Accessories & Construction</h1>
+
+    <p data-lang="zh">
+        適用於各類混凝土與牆體施工，強化支撐、防止坍塌，提升整體施工效率與安全。
+    </p>
+    <p data-lang="en">
+        Designed for concrete and wall construction, enhancing structural support, preventing collapse,
+        and improving efficiency & safety.
+    </p>
+</div>
+
+<!-- CONTENT -->
+<div class="container fade-up">
+
+    <!-- APPLICATION -->
+    <section>
+        <h2 data-lang="zh">應用 Application</h2>
+        <h2 data-lang="en">Application</h2>
+
+        <p data-lang="zh">適用於混凝土施工，可節省灌漿時間與材料。</p>
+        <p data-lang="en">Suitable for concrete; saves grouting time and materials.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- FEATURES -->
+    <section>
+        <h2 data-lang="zh">特性 Features</h2>
+        <h2 data-lang="en">Features</h2>
+
+        <p data-lang="zh">
+            ● 抗壓、抗彎曲、抗剪強度。<br>
+            ● 支撐牆體、防止坍塌。<br>
+            ● 降低補強成本與風險。<br>
+            ● 符合 ROC / ACI 347 / JIS / AISC / CNS 標準。
+        </p>
+
+        <p data-lang="en">
+            ● Compression, bending & shear resistance.<br>
+            ● Supports the wall and prevents collapse.<br>
+            ● Reduces reinforcing cost and risk.<br>
+            ● Meets ROC / ACI347 / JIS / AISC / CNS standards.
+        </p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ============================================================
+         IMAGES — ONLY 11emm.png + 9emm.png
+    ============================================================= -->
+    <section>
+
+        <!-- TITLE 1 -->
+        <h2 data-lang="zh">平面擴張網系列產品</h2>
+        <h2 data-lang="en">Expanded Metal Mesh</h2>
+
+        <img src="11emm.png" class="full-img">
+        <hr class="divider">
+
+        <!-- TITLE 2 (no images kept) -->
+        <h2 data-lang="zh">速固網</h2>
+        <h2 data-lang="en">Fast-Set Mesh</h2>
+        <hr class="divider">
+
+        <!-- TITLE 3 (no images kept) -->
+        <h2 data-lang="zh">磚牆網</h2>
+        <h2 data-lang="en">Brick Wall Mesh</h2>
+
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p data-lang="zh">© 2025 承閎股份有限公司 版權所有</p>
+    <p data-lang="en">© 2025 ChangHun Steel Inc. All Rights Reserved.</p>
+</footer>
+
+<script>
+/* LANGUAGE SWITCH */
+let currentLang="zh";
+function applyLanguage(lang){
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+        el.style.display =
+            (el.getAttribute("data-lang")===lang) ? "" : "none";
+    });
+}
+function toggleLanguage(){
+    currentLang = currentLang==="zh" ? "en" : "zh";
+    document.getElementById("langBtn").innerText =
+        currentLang==="zh" ? "English" : "中文";
+    applyLanguage(currentLang);
+}
+document.addEventListener("DOMContentLoaded",()=>{
+    applyLanguage("zh");
+});
+
+/* POPDOWN MENU */
+window.addEventListener("DOMContentLoaded",()=>{
+    const header=document.querySelector("header");
+    const navBar=document.getElementById("navBar");
+    let isHover=false;
+
+    function show(){ navBar.classList.add("visible"); }
+    function hide(){ setTimeout(()=>{ if(!isHover) navBar.classList.remove("visible"); },150); }
+
+    header.addEventListener("mouseenter",()=>{ isHover=true; show(); });
+    header.addEventListener("mouseleave",()=>{ isHover=false; hide(); });
+
+    navBar.addEventListener("mouseenter",()=>{ isHover=true; show(); });
+    navBar.addEventListener("mouseleave",()=>{ isHover=false; hide(); });
+});
+</script>
+
+</body>
+</html>

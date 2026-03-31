@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>承閎股份有限公司 — ChangHun Steel Inc.</title>
+
+<!-- OpenAI Chat Widget -->
+<script src="https://cdn.jsdelivr.net/npm/openai-chat-widget@latest/dist/widget.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/openai-chat-widget@latest/dist/widget.css" />
+
+<style>
+/* ============================================================
+   GLOBAL — DYNAMIC GRADIENT DESIGN
+============================================================ */
+html { scroll-padding-top: 140px; }
+body {
+    margin:0;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background:#f7faff;
+    color:#222;
+    line-height:1.75;
+    overflow-x:hidden;
+}
+
+/* Fade-up animation */
+.fade-up {
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(35px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+/* Floating animation */
+@keyframes floatAnim {
+    0% { transform:translateY(0px); }
+    50% { transform:translateY(-12px); }
+    100% { transform:translateY(0px); }
+}
+
+/* Glass card */
+.glass {
+    backdrop-filter: blur(14px);
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(255,255,255,0.35);
+    box-shadow:0 8px 26px rgba(0,0,0,0.08);
+    border-radius:18px;
+}
+
+/* Section container */
+.container {
+    max-width:1200px;
+    margin:auto;
+    padding:60px 60px;
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+header {
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+    padding:10px 40px;
+    height:92px;
+    display:flex;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 6px 25px rgba(0,0,0,0.15);
+}
+
+header img {
+    height:72px; width:72px;
+    border-radius:16px;
+    object-fit:cover;
+    margin-right:20px;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(39,96,168,0.35);
+    background:white;
+}
+
+header h1 {
+    margin:0;
+    font-size:30px;
+    font-weight:750;
+    color:#1F4F89;
+}
+
+.lang-btn {
+    margin-left:auto;
+    padding:10px 20px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+    box-shadow:0 6px 20px rgba(39,96,168,0.35);
+}
+.lang-btn:hover {
+    transform:translateY(-3px);
+    box-shadow:0 10px 28px rgba(39,96,168,0.45);
+}
+
+/* ============================================================
+   POPDOWN NAVIGATION
+============================================================ */
+#navBar {
+    background:linear-gradient(to right, #2760A8, #1F4F89);
+    width:100%;
+    position:fixed;
+    top:110px; left:0;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    opacity:0; height:0; overflow:hidden;
+    transition:height .25s, opacity .25s;
+    z-index:900;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+#navBar.visible { opacity:1; height:60px; padding:14px 0; }
+.nav-item {
+    color:white; cursor:pointer;
+    font-size:19px; font-weight:650;
+    transition:0.2s;
+}
+.nav-item:hover { transform:scale(1.18); }
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+#home {
+    text-align:center;
+    padding:140px 20px 120px;
+    background:linear-gradient(135deg,#eaf1ff,#f7faff 40%,#e2ecff);
+    position:relative;
+    overflow:hidden;
+}
+#home h1 {
+    font-size:48px;
+    font-weight:750;
+    color:#1F4F89;
+}
+#home p {
+    font-size:20px;
+    max-width:700px;
+    margin:auto;
+    opacity:0.8;
+}
+
+.circle {
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle, #ffffffaa, #2760A833);
+    filter:blur(4px);
+}
+.c1 { width:180px;height:180px; top:80px; left:12%; animation:floatAnim 6s infinite; }
+.c2 { width:240px;height:240px; bottom:60px; right:12%; animation:floatAnim 8s infinite; }
+.c3 { width:140px;height:140px; bottom:22%; left:20%; animation:floatAnim 7s infinite; }
+
+/* ============================================================
+   TABLES
+============================================================ */
+table {
+    border-collapse:collapse;
+    width:100%;
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 5px 16px rgba(0,0,0,0.08);
+}
+table th {
+    background:#2760A8;
+    color:white;
+    padding:12px;
+}
+table td {
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #efefef;
+}
+
+/* CATEGORY CARDS */
+.category-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+}
+.category-box {
+    height:200px;
+    background:white;
+    border:2px solid transparent;
+    border-radius:18px;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    font-size:20px;
+    color:#1F4F89;
+    transition:.25s;
+    box-shadow:0 4px 14px rgba(0,0,0,0.08);
+}
+.category-box:hover {
+    transform:translateY(-6px);
+    border-color:#2760A8;
+    box-shadow:0 8px 24px rgba(39,96,168,0.20);
+}
+
+/* CONTACT GRID */
+.contact-grid {
+    display:grid; 
+    grid-template-columns:repeat(4,1fr);
+    gap:25px; 
+    padding:20px 100px;
+}
+.contact-box {
+    background:white;
+    padding:26px;
+    border-radius:18px;
+    text-align:center;
+    font-weight:600;
+    border:1px solid #e9e9e9;
+    box-shadow:0 3px 12px rgba(0,0,0,0.06);
+}
+
+/* FOOTER */
+footer {
+    background:#003066;
+    color:white;
+    text-align:center;
+    padding:28px;
+    margin-top:60px;
+    font-size:15px;
+}
+
+/* ============================================================
+   FLOATING CHAT BUTTON
+============================================================ */
+#floatingChatBtn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: linear-gradient(135deg, #2760A8, #1F4F89);
+    color: white;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:32px;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    z-index:9999;
+    transition:0.25s;
+}
+#floatingChatBtn:hover { transform: scale(1.08); }
+
+/* ============================================================
+   ADDED ONLY — FEATURE CARD STYLE (non-destructive)
+============================================================ */
+.feature-card{
+    background:rgba(255,255,255,0.92);
+    border-radius:18px;
+    padding:26px 28px;
+    margin:18px 0;
+    box-shadow:0 4px 14px rgba(0,0,0,0.08);
+    border:1px solid rgba(39,96,168,0.12);
+}
+.feature-card h3{
+    margin:0 0 10px;
+    color:#1F4F89;
+}
+.feature-card p{
+    margin:0;
+}
+</style>
+
+<script>
+/* ============================================================
+   LANGUAGE SYSTEM
+============================================================ */
+function applyLanguage(lang){
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+        el.style.display = (el.getAttribute("data-lang")===lang) ? "" : "none";
+    });
+}
+
+let currentLang="zh";
+function toggleLanguage(){
+    currentLang = (currentLang==="zh") ? "en" : "zh";
+    document.getElementById("langBtn").innerText =
+        (currentLang==="zh") ? "English" : "中文";
+    applyLanguage(currentLang);
+}
+
+document.addEventListener("DOMContentLoaded",()=>{ applyLanguage("zh"); });
+
+/* POPDOWN NAV */
+window.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector("header");
+    const navBar = document.getElementById("navBar");
+    let isHovering = false;
+
+    function showMenu(){ navBar.classList.add("visible"); }
+    function hideMenu(){ setTimeout(()=>{ if(!isHovering) navBar.classList.remove("visible"); },150); }
+
+    header.addEventListener("mouseenter",()=>{ isHovering=true; showMenu(); });
+    header.addEventListener("mouseleave",()=>{ isHovering=false; hideMenu(); });
+
+    navBar.addEventListener("mouseenter",()=>{ isHovering=true; showMenu(); });
+    navBar.addEventListener("mouseleave",()=>{ isHovering=false; hideMenu(); });
+});
+
+/* Scroll to top */
+window.onload = () => { window.scrollTo(0,0); };
+
+function scrollToSection(id){
+    document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+</script>
+</head>
+
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <img src="logo.jpeg" onclick="location.href='index.html'">
+    <div>
+        <h1 data-lang="zh">承閎股份有限公司</h1>
+        <h1 data-lang="en">ChangHun Steel Inc.</h1>
+    </div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">English</button>
+</header>
+
+<!-- NAV -->
+<div id="navBar">
+    <div class="nav-item" data-lang="zh" onclick="scrollToSection('home')">首頁</div>
+    <div class="nav-item" data-lang="en" onclick="scrollToSection('home')">Home</div>
+
+    <div class="nav-item" data-lang="zh" onclick="scrollToSection('features')">產品介紹</div>
+    <div class="nav-item" data-lang="en" onclick="scrollToSection('features')">Products</div>
+
+    <div class="nav-item" data-lang="zh" onclick="scrollToSection('about')">關於我們</div>
+    <div class="nav-item" data-lang="en" onclick="scrollToSection('about')">About Us</div>
+
+    <div class="nav-item" data-lang="zh" onclick="location.href='CHecommerce.html'">電子商務</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='CHecommerce.html'">E-Commerce</div>
+
+    <div class="nav-item" data-lang="zh" onclick="scrollToSection('contact')">聯絡我們</div>
+    <div class="nav-item" data-lang="en" onclick="scrollToSection('contact')">Contact</div>
+</div>
+
+<!-- HERO -->
+<div id="home" class="fade-up">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+
+    <h1 data-lang="zh">專業高品質鋼卷供應商</h1>
+    <h1 data-lang="en">Your Trusted Steel Supplier</h1>
+
+    <p data-lang="zh">耐用、高強度並可客製化的鋼製建材。</p>
+    <p data-lang="en">Durable, high-strength steel materials.</p>
+</div>
+
+<!-- FEATURES -->
+<section id="features" class="container fade-up">
+
+<h2 data-lang="zh">產品介紹</h2>
+<h2 data-lang="en">Products</h2>
+
+<div class="category-grid" style="margin-bottom:50px;">
+
+    <div class="category-box" onclick="location.href='p1.html'">
+        <p data-lang="zh">輕隔間鋼架</p>
+        <p data-lang="en">Partition Frame System</p>
+    </div>
+
+    <div class="category-box" onclick="location.href='p2.html'">
+        <p data-lang="zh">配件與施工</p>
+        <p data-lang="en">Accessories & Construction</p>
+    </div>
+
+    <div class="category-box" onclick="location.href='p3.html'">
+        <p data-lang="zh">T-Bar 輕鋼架</p>
+        <p data-lang="en">T-Bar</p>
+    </div>
+
+    <div class="category-box" onclick="location.href='p4.html'">
+        <p data-lang="zh">暗架天花系列</p>
+        <p data-lang="en">Concealed Ceiling</p>
+    </div>
+
+    <div class="category-box" onclick="location.href='p5.html'">
+        <p data-lang="zh">流明天花系列</p>
+        <p data-lang="en">Metal Ceiling</p>
+    </div>
+
+</div>
+
+<!-- FEATURE CARDS (unchanged text) -->
+<h2 data-lang="zh" style="color:#1F4F89; margin-bottom:25px;">特性 Features</h2>
+<h2 data-lang="en" style="color:#1F4F89; margin-bottom:25px;">Features</h2>
+
+<div class="feature-card fade-up">
+    <h3 data-lang="zh">鍍鋅的目的與防蝕原理</h3>
+    <p data-lang="zh">
+鍍鋅是利用鋅在大氣中具有優異耐蝕性的特性，於鋼材表面形成保護層，以延長鋼材的使用壽命。鋅層可作為犧牲層，優先腐蝕以保護內部鋼材，此機制稱為「犧牲防蝕」或「陰極保護」。
+即使鍍鋅層局部受損，鋅仍能透過電化學反應持續保護鋼材，防止生鏽擴散。此種雙重防護機制，使鍍鋅鋼材廣泛應用於建築、結構及戶外環境，兼具耐久性與可靠性。
+    </p>
+
+    <!-- ADDED ONLY: English content aligned to the same card -->
+    <h3 data-lang="en">Purpose & Anti-Corrosion Principle of Galvanizing</h3>
+    <p data-lang="en">
+Galvanizing takes advantage of zinc’s excellent corrosion resistance in the atmosphere by forming a protective layer on the steel surface to extend service life. The zinc layer acts as a sacrificial layer that corrodes first to protect the underlying steel—often referred to as sacrificial protection or cathodic protection.
+Even if the galvanized layer is partially damaged, zinc can continue to protect the steel through electrochemical reactions, helping prevent rust from spreading. This dual protection mechanism is why galvanized steel is widely used in construction, structural applications, and outdoor environments for durability and reliability.
+    </p>
+</div>
+
+<div class="feature-card fade-up">
+    <h3 data-lang="zh">鍍鋅鋼捲板之製程</h3>
+    <p data-lang="zh">
+鋼捲原料（Coil）經酸洗處理，再鍍上鋅層之鍍鋅鋼板。經現代化烘烤塗裝工廠，於高溫控制（185°C～460°C）之烤箱區，使鍍鋅鋼板表面塗裝平整光滑，附著力極佳、不易剝落、耐腐蝕、抗酸鹼、絕緣隔熱效果佳、並具自動修補功能，故鋼材表面經塗裝後可提高耐用性及使用壽命。
+    </p>
+
+    <!-- ADDED ONLY: English content -->
+    <h3 data-lang="en">Galvanized Coil Manufacturing Process</h3>
+    <p data-lang="en">
+Steel coil material is first pickled (acid-cleaned) and then galvanized with a zinc coating. With modern baking/painting lines and controlled high-temperature curing (185°C–460°C), the coated surface becomes smooth with strong adhesion, is less prone to peeling, and provides excellent corrosion resistance. It also improves resistance to acids and alkalis, offers insulation and heat protection benefits, and helps enhance overall durability—extending product service life after coating.
+    </p>
+</div>
+
+<div class="feature-card fade-up">
+    <h3 data-lang="zh">鍍鋅量</h3>
+    <p data-lang="zh">鍍鋅鋼之鍍鋅量依 CNS 1244（G3207）標準規範。</p>
+
+    <!-- ADDED ONLY: English line -->
+    <p data-lang="en">Zinc coating weight follows CNS 1244 (G3207) standards.</p>
+
+    <div style="display:flex;gap:30px;flex-wrap:wrap;margin-top:20px;">
+        <div style="flex:1;min-width:280px;">
+            <table>
+                <tr><th data-lang="zh">鋅層代號</th><td>Z12</td><td>Z18</td><td>Z27</td></tr>
+                <tr><th data-lang="zh">兩面三點法鍍鋅量</th><td>120</td><td>180</td><td>275</td></tr>
+                <tr><th data-lang="zh">兩面一點法鍍鋅量</th><td>102</td><td>153</td><td>234</td></tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="feature-card fade-up">
+    <h3 data-lang="zh">鋼捲鋼板之厚度</h3>
+    <p data-lang="zh">
+鋼捲鋼板之厚度係以國際通用之厚度規範 GA（Gauge）為標準，實際厚度依規格而定。
+    </p>
+    <br>
+ <div style="flex:1;min-width:280px;">
+            <table>
+                <tr><th>GA</th><td>24</td><td>22</td><td>20</td><td>18</td><td>16</td><td>14</td></tr>
+                <tr><th>mm</th><td>0.54</td><td>0.74</td><td>0.92</td><td>1.18</td><td>1.45</td><td>2.0</td></tr>
+            </table>
+        </div>
+
+    <!-- ADDED ONLY: English -->
+    <p data-lang="en">
+Coil thickness commonly follows the international GA (Gauge) standard. Actual thickness depends on specification.
+    </p>
+</div>
+
+
+<div class="feature-card fade-up">
+    <h3 data-lang="zh">鋼板表面銹化</h3>
+    <p data-lang="zh">
+鋼材之表面輕度銹化，係鋼材自然氧化反應之正常情形，輕度銹化不影響材料本身之使用性能。
+    </p>
+    <p data-lang="zh">
+Skin Pass 之鋼材可改善表面亮度、加工性與耐用性。
+    </p>
+
+    <!-- ADDED ONLY: English -->
+    <h3 data-lang="en">Surface Oxidation</h3>
+    <p data-lang="en">
+Light surface oxidation is a normal natural reaction of steel and typically does not affect material performance.
+    </p>
+    <p data-lang="en">
+Skin Pass steel can improve surface brightness, formability, and durability.
+    </p>
+</div>
+
+<div class="feature-card fade-up">
+    <h3 data-lang="zh">鋼板除膜處理</h3>
+    <p data-lang="zh">
+經塗裝處理之鋼板，其表層塗膜具有一定之保護功能；若表層塗膜破損或脫落，則容易產生氧化，因此需避免外力碰撞造成損壞。
+    </p>
+
+    <h3 data-lang="en">Coating Film Protection</h3>
+    <p data-lang="en">
+The coating film on painted steel provides protective function. If the film is damaged or peeled off, oxidation may occur more easily—so external impact and damage should be avoided.
+    </p>
+</div>
+
+
+<div class="feature-card fade-up">
+    <h3 data-lang="en">Features</h3>
+    <p data-lang="en">
+This series of product start in large buildings. A frame system is built with light steel frames, and plaster boards serve as the surface material.
+    </p>
+    <p data-lang="en">
+Our light steel frames for partition are produced from galvanized coils through precision slitting and high-speed automatic forming.
+    </p>
+
+    <h3 data-lang="en" style="margin-top:25px;">Applications</h3>
+    <p data-lang="en">Office buildings, hospitals, department stores, residences, factories, restaurants, etc.</p>
+</div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="container fade-up">
+<h2 data-lang="zh">關於我們</h2>
+<h2 data-lang="en">About Us</h2>
+<br>
+<p data-lang="zh">
+承閎股份有限公司於2003年設立，致力生產客戶最需求之 輕鋼架、輕隔間等客房用材料。
+</p>
+<br>
+2003年8月 — 台中北屯松竹路設立
+<br>
+2016年1月 — 遷廠至台中霧峰四德路489-38號
+</p>
+
+<p data-lang="en">
+Chang Hun Steel Inc. was established in 2003 producing light compartment frame materials.
+</p>
+
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact" class="container fade-up">
+<h2 data-lang="zh">聯絡我們</h2>
+<h2 data-lang="en">Contact Us</h2>
+
+<div class="contact-grid">
+    <div class="contact-box" data-lang="zh">地址<br>台中市霧峰區四德路489-38號</div>
+    <div class="contact-box" data-lang="en">Address<br>No.489-38, Wufeng, Taichung</div>
+
+    <div class="contact-box">
+        <p data-lang="zh">電話<br><a href="tel:+886423399933">+886-4-2339-9933</a></p>
+        <p data-lang="en">Phone<br><a href="tel:+886423399933">+886-4-2339-9933</a></p>
+    </div>
+
+    <div class="contact-box">
+        <p data-lang="zh">傳真<br>+886-4-2339-3816</p>
+        <p data-lang="en">Fax<br>+886-4-2339-3816</p>
+    </div>
+
+    <div class="contact-box">
+        <p data-lang="zh">電子郵件<br><a href="mailto:sales@chang-hun.com">sales@chang-hun.com</a></p>
+        <p data-lang="en">Email<br><a href="mailto:sales@chang-hun.com">sales@chang-hun.com</a></p>
+    </div>
+</div>
+</section>
+
+<!-- MAP -->
+<div class="fade-up" style="margin-top:60px; padding:0 60px;">
+    <div data-lang="zh">
+        <iframe src="https://www.google.com/maps?q=台中市霧峰區四德路489-38號&output=embed"
+        width="100%" height="400"></iframe>
+    </div>
+    <div data-lang="en">
+        <iframe src="https://www.google.com/maps?q=489-38,+Si-De+Road,+Wufeng,+Taichung&output=embed"
+        width="100%" height="400"></iframe>
+    </div>
+</div>
+
+<footer>
+    <p data-lang="zh">© 2025 承閎股份有限公司 版權所有</p>
+    <p data-lang="en">© 2025 ChangHun Steel Inc. All Rights Reserved.</p>
+</footer>
+
+<!-- Floating Chat Button -->
+<div id="floatingChatBtn" onclick="openFloatingChat()">💬</div>
+
+</body>
+</html>

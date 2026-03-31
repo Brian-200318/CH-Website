@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>承閎股份有限公司 — E-Commerce</title>
+
+<style>
+/* ============================================================
+   GLOBAL — MATCH INDEX / P1 THEME
+============================================================ */
+html { scroll-padding-top: 140px; }
+body {
+    margin:0;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background:#f7faff;
+    color:#222;
+    line-height:1.75;
+    overflow-x:hidden;
+    transition:0.3s ease;
+}
+
+/* Fade-up animation */
+.fade-up {
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(35px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+/* Floating circles */
+.circle {
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle, #ffffffaa, #2760A833);
+    filter:blur(4px);
+}
+.c1 { width:180px;height:180px; top:80px; left:12%; animation:floatAnim 6s infinite; }
+.c2 { width:240px;height:240px; bottom:60px; right:12%; animation:floatAnim 8s infinite; }
+.c3 { width:140px;height:140px; bottom:22%; left:20%; animation:floatAnim 7s infinite; }
+
+@keyframes floatAnim {
+    0% { transform:translateY(0px); }
+    50% { transform:translateY(-12px); }
+    100% { transform:translateY(0px); }
+}
+
+/* ============================================================
+   HEADER — GLASS STYLE
+============================================================ */
+header {
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+    padding:10px 40px;
+    height:92px;
+    display:flex;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 6px 25px rgba(0,0,0,0.15);
+}
+header img {
+    height:72px; width:72px;
+    border-radius:16px;
+    object-fit:cover;
+    margin-right:20px;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(39,96,168,0.35);
+    background:white;
+    display:block;
+}
+header h1 {
+    margin:0;
+    font-size:30px;
+    font-weight:750;
+    color:#1F4F89;
+}
+
+.header-logo-link{
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+}
+
+/* LANGUAGE BUTTON */
+.lang-btn {
+    padding:10px 20px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 6px 20px rgba(39,96,168,0.35);
+    transition:.2s;
+}
+.lang-btn:hover { transform:translateY(-3px); }
+
+/* POPDOWN NAV */
+#navBar {
+    background:linear-gradient(to right, #2760A8, #1F4F89);
+    width:100%;
+    position:fixed;
+    top:110px; left:0;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    opacity:0; height:0; overflow:hidden;
+    transition:height .25s, opacity .25s, padding .25s;
+    z-index:900;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+#navBar.visible { opacity:1; height:60px; padding:14px 0; }
+.nav-item {
+    color:white; cursor:pointer;
+    font-size:19px; font-weight:650;
+    transition:0.2s;
+    user-select:none;
+    white-space:nowrap;
+}
+.nav-item:hover { transform:scale(1.18); }
+
+/* BACK BUTTON */
+.side-back {
+    position:fixed;
+    top:120px;
+    left:0;
+    width:36px;
+    height:70px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:0 14px 14px 0;
+    cursor:pointer;
+    z-index:2000;
+    transition:0.25s;
+}
+.side-back:hover { transform:translateX(5px); }
+
+/* HERO */
+#hero {
+    text-align:center;
+    padding:160px 20px 140px;
+    background:linear-gradient(135deg,#eaf1ff,#f7faff 40%,#e2ecff);
+    position:relative;
+    overflow:hidden;
+}
+#hero h1 {
+    font-size:44px;
+    font-weight:800;
+    color:#1F4F89;
+}
+#hero p {
+    font-size:20px;
+    opacity:0.75;
+    max-width:720px;
+    margin:auto;
+}
+
+/* CONTENT */
+.container {
+    max-width:1200px;
+    margin:auto;
+    padding:60px 60px;
+}
+
+section { margin-bottom:40px; }
+h2 { margin-top:0; color:#1F4F89; font-size:28px; }
+
+/* IMAGES */
+.full-img {
+    width:100%;
+    max-width:1000px;
+    display:block;
+    margin:30px auto;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+}
+
+.divider {
+    border:none;
+    border-top:1px solid #dddddd;
+    margin:40px 0;
+}
+
+/* ADDED FORM / GLASS STYLES */
+.glass{
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.45);
+    border-radius:22px;
+    box-shadow:0 18px 45px rgba(31,79,137,0.10);
+    padding:34px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:24px;
+    margin-bottom:22px;
+    box-shadow:0 10px 24px rgba(0,0,0,0.06);
+    border:1px solid #edf3ff;
+}
+
+.card h3{
+    margin-top:0;
+    color:#1F4F89;
+    font-size:22px;
+}
+
+label{
+    display:block;
+    margin:10px 0 8px;
+    font-weight:600;
+    color:#27476f;
+}
+
+input[type="text"],
+input[type="date"]{
+    width:100%;
+    box-sizing:border-box;
+    padding:13px 14px;
+    border-radius:12px;
+    border:1px solid #cddcf5;
+    background:#fbfdff;
+    font-size:15px;
+    outline:none;
+    transition:.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus{
+    border-color:#2760A8;
+    box-shadow:0 0 0 4px rgba(39,96,168,0.10);
+}
+
+input[type="checkbox"]{
+    width:auto;
+    margin-right:8px;
+    transform:translateY(1px);
+}
+
+.btn{
+    padding:14px 28px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 10px 24px rgba(39,96,168,0.28);
+    transition:.2s ease;
+}
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 28px rgba(39,96,168,0.34);
+}
+
+.sub-section{
+    margin-top:14px;
+    padding:14px 16px;
+    border-radius:14px;
+    background:#f8fbff;
+    border:1px solid #e0ebfb;
+}
+
+.sub-section h4{
+    margin:0 0 10px;
+    color:#1F4F89;
+}
+
+.sub-section strong{
+    display:block;
+    margin-bottom:10px;
+    color:#1F4F89;
+}
+
+.thickness-area{
+    margin-top:8px;
+}
+
+#optionsContainer > .sub-section{
+    margin-bottom:14px;
+}
+
+footer {
+    background:#003066;
+    color:white;
+    text-align:center;
+    padding:28px;
+    margin-top:60px;
+}
+</style>
+</head>
+
+<body>
+
+<header onmouseenter="showNav()" onmouseleave="hideNav()">
+<a href="index.html" class="header-logo-link">
+    <img src="logo.jpeg" onclick="goHome()">
+</a>
+<h1>承閎股份有限公司</h1>
+</header>
+
+<div id="navBar" onmouseenter="showNav()" onmouseleave="hideNav()">
+    <div class="nav-item" onclick="location.href='index.html'">首頁</div>
+    <div class="nav-item" onclick="location.href='p1.html'">產品介紹</div>
+    <div class="nav-item" onclick="location.href='ecommerce.html'">線上報價</div>
+    <div class="nav-item" onclick="scrollToFooter()">聯絡我們</div>
+</div>
+
+<div class="side-back" onclick="goHome()">←</div>
+
+<section id="hero">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <h1>電子商務平台</h1>
+    <p>線上產品瀏覽、詢價與訂購系統</p>
+</section>
+
+<section class="container">
+<div class="glass">
+
+<div id="quotationFormWrapper">
+
+<!-- ===== YOUR ORIGINAL FILE START (UNCHANGED) ===== -->
+
+<h2>承閎電子商務 — 產品報價申請</h2>
+
+<form id="quotationForm">
+
+<!-- 基本資料 -->
+<div class="card">
+    <h3>基本資料</h3>
+    <label>公司名稱及聯絡人 *</label>
+    <input type="text" required>
+
+    <label>回覆電話號碼 / 電子郵件 *</label>
+    <input type="text" required>
+</div>
+
+<!-- 產品類型 -->
+<div class="card">
+    <h3>產品類型</h3>
+
+    <label><input type="checkbox" value="partition" onchange="updateOptions()"> 隔間輕鋼架</label>
+    <label><input type="checkbox" value="accessory" onchange="updateOptions()"> 隔間輕鋼架－配件</label>
+    <label><input type="checkbox" value="tbar" onchange="updateOptions()"> T-Bar 輕鋼架</label>
+    <label><input type="checkbox" value="dark" onchange="updateOptions()"> 暗架天花系列</label>
+    <label><input type="checkbox" value="flow" onchange="updateOptions()"> 流明天花系列</label>
+</div>
+
+<!-- 產品選項 -->
+<div class="card">
+    <h3>產品選項</h3>
+    <div id="optionsContainer">
+        <p style="color:gray;">請先選擇產品類型</p>
+    </div>
+</div>
+
+<!-- 交貨日期 -->
+<div class="card">
+    <h3>交貨日期</h3>
+    <label>請選擇預計交貨日期 *</label>
+    <input type="date" id="deliveryDate" required>
+</div>
+
+<div class="card">
+    <button type="submit" class="btn">送出報價申請</button>
+</div>
+
+</form>
+
+<script>
+
+/* =============================
+   Thickness HTML
+============================= */
+
+function thicknessHTML(){
+    return `
+        <div class="sub-section">
+            <strong>厚度</strong>
+            <label><input type="checkbox"> GA 24</label>
+            <label><input type="checkbox"> GA 22</label>
+            <label><input type="checkbox"> GA 20</label>
+        </div>
+    `;
+}
+
+function toggleThickness(checkbox){
+    const container = checkbox.parentElement.nextElementSibling;
+    if(checkbox.checked){
+        container.innerHTML = thicknessHTML();
+    } else {
+        container.innerHTML = "";
+    }
+}
+
+function specBlock(label){
+    return `
+        <label>
+            <input type="checkbox" onchange="toggleThickness(this)">
+            ${label}
+        </label>
+        <div class="sub-section thickness-area"></div>
+    `;
+}
+
+/* =============================
+   Level 1 (立柱類型)
+============================= */
+
+const level1HTML = `
+<div class="sub-section">
+
+<h4>請選擇立柱類型</h4>
+
+<label><input type="checkbox" value="c" onchange="showSpec()"> C型立柱</label>
+<label><input type="checkbox" value="h" onchange="showSpec()"> H型立柱</label>
+<label><input type="checkbox" value="ch" onchange="showSpec()"> C H型立柱</label>
+<label><input type="checkbox" value="u" onchange="showSpec()"> U型上下槽</label>
+<label><input type="checkbox" value="j" onchange="showSpec()"> J型高低槽</label>
+<label><input type="checkbox" value="cf" onchange="showSpec()"> C F立柱</label>
+
+<div id="specSection" class="sub-section"></div>
+
+</div>
+`;
+
+/* =============================
+   Level 2 Data
+============================= */
+
+const specData = {
+
+/* ===== Partition Types ===== */
+
+c: `
+<strong>C型立柱</strong>
+${specBlock("40×35 mm")}
+${specBlock("50×35 mm")}
+${specBlock("65×35 mm")}
+${specBlock("75×35 mm")}
+${specBlock("80×35 mm")}
+${specBlock("92×35 mm")}
+${specBlock("132×35 mm")}
+${specBlock("175×35 mm")}
+${specBlock("250×35 mm")}
+`,
+
+h: `
+<strong>H型立柱</strong>
+${specBlock("125×35 mm")}
+${specBlock("132×35 mm")}
+${specBlock("150×35 mm")}
+${specBlock("200×35 mm")}
+`,
+
+ch: `
+<strong>C H型立柱</strong>
+${specBlock("65×35×7-25.4 mm")}
+${specBlock("75×35×7-25.4 mm")}
+${specBlock("92×35×7-25.4 mm")}
+${specBlock("200×35×7-25.4 mm")}
+`,
+
+u: `
+<strong>U型上下槽</strong>
+${specBlock("42×30 mm - 8尺")}
+${specBlock("52×30 mm - 8尺")}
+${specBlock("67×30 mm - 8尺")}
+${specBlock("67×40 mm - 8尺")}
+${specBlock("77×30 mm - 8尺")}
+${specBlock("77×40 mm - 8尺")}
+${specBlock("94×30 mm - 8尺")}
+${specBlock("94×40 mm - 8尺")}
+${specBlock("82×30-100 mm - 8尺")}
+${specBlock("134×30-100 mm - 8尺")}
+${specBlock("177×30-100 mm - 8尺")}
+${specBlock("252×30-100 mm - 8尺")}
+`,
+
+j: `
+<strong>J型高低槽</strong>
+${specBlock("67×57×25 mm")}
+${specBlock("77×57×25 mm")}
+${specBlock("94×57×25 mm")}
+${specBlock("252×57×25 mm")}
+`,
+
+cf: `
+<strong>C F立柱</strong>
+${specBlock("65/75/92×35 mm")}
+${specBlock("100×35 mm")}
+${specBlock("125/35×35 mm")}
+`,
+
+/* ===== Partition Accessories ===== */
+
+accessory: `
+<strong>隔間輕鋼架－配件</strong>
+<label><input type="checkbox"> 11筋擴張網 2尺 × 8尺</label>
+<label><input type="checkbox"> 平面型磚牆網 100×1220 mm</label>
+<label><input type="checkbox"> L 收邊</label>
+<label><input type="checkbox"> 7 字收邊</label>
+<label><input type="checkbox"> 護腳</label>
+`,
+
+/* ===== Other Product Types ===== */
+
+tbar: `
+<strong>T-Bar 輕鋼架</strong>
+<label><input type="checkbox"> T-Bar 平接 24×38/28 mm</label>
+<label><input type="checkbox"> T-Bar 平接抗震 28 型 24×38/28 mm</label>
+<label><input type="checkbox"> T-Bar 平接抗震 38 型 24×38/28 mm</label>
+<label><input type="checkbox"> T-Bar 平接抗震 48 型 24×48/28 mm</label>
+`,
+
+dark: `
+<strong>暗架天花系列</strong>
+<label><input type="checkbox"> 大百葉 8/12尺 26GA</label>
+<label><input type="checkbox"> 大百葉 8/10/12尺 25GA</label>
+<label><input type="checkbox"> 大百葉 8/10/12尺 24GA</label>
+<label><input type="checkbox"> 百葉支撐架 8/10尺 22GA 36×19×36mm</label>
+<label><input type="checkbox"> 百葉支撐架 8/10尺 22GA 32×22×32mm</label>
+`,
+
+flow: `
+<strong>流明天花系列</strong>
+<label><input type="checkbox"> 方格網 5×5 (黑/白)</label>
+<label><input type="checkbox"> 方格網 3×3 (黑/白)</label>
+<label><input type="checkbox"> 菱形網 603×603 (黑/白)</label>
+<label><input type="checkbox"> 菱形網 603×603 (紅)</label>
+<label><input type="checkbox"> 魚形網 603×603 (黑/白)</label>
+<label><input type="checkbox"> 蜂巢網 603×603 (黑/白)</label>
+`
+};
+
+/* =============================
+   Update Level 0
+============================= */
+
+function updateOptions(){
+
+    const container = document.getElementById("optionsContainer");
+    const selected = document.querySelectorAll('#quotationForm > .card input[type="checkbox"][value]:checked');
+
+    let html = "";
+
+    selected.forEach(box => {
+
+        if(box.value === "partition"){
+            html += level1HTML;
+        } else if(specData[box.value]){
+            html += `<div class="sub-section">${specData[box.value]}</div>`;
+        }
+
+    });
+
+    container.innerHTML = html || '<p style="color:gray;">請先選擇產品類型</p>';
+}
+
+/* =============================
+   Show Level 2
+============================= */
+
+function showSpec(){
+
+    const specContainer = document.getElementById("specSection");
+    if(!specContainer) return;
+
+    const selected = document.querySelectorAll(
+        '#optionsContainer input[value="c"]:checked, ' +
+        '#optionsContainer input[value="h"]:checked, ' +
+        '#optionsContainer input[value="ch"]:checked, ' +
+        '#optionsContainer input[value="u"]:checked, ' +
+        '#optionsContainer input[value="j"]:checked, ' +
+        '#optionsContainer input[value="cf"]:checked'
+    );
+
+    let html = "";
+
+    selected.forEach(box=>{
+        if(specData[box.value]){
+            html += `<div class="sub-section">${specData[box.value]}</div>`;
+        }
+    });
+
+    specContainer.innerHTML = html;
+}
+
+/* =============================
+   Prevent Submit
+============================= */
+
+document.getElementById("quotationForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("報價申請已送出（示範版本）");
+});
+
+</script>
+
+<!-- ===== YOUR ORIGINAL FILE END (UNCHANGED) ===== -->
+
+</div>
+</div>
+</section>
+
+<footer id="footer">
+    承閎股份有限公司 © 2026<br>
+    電子商務平台 / 線上產品瀏覽、詢價與訂購系統
+</footer>
+
+<script>
+function showNav(){
+    document.getElementById("navBar").classList.add("visible");
+}
+
+function hideNav(){
+    document.getElementById("navBar").classList.remove("visible");
+}
+
+function goHome(){
+    window.location.href = "index.html";
+}
+
+function scrollToFooter(){
+    document.getElementById("footer").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>承閎股份有限公司 — T-BAR Ceiling System</title>
+
+<style>
+/* ============================================================
+   GLOBAL — MATCH FULL SITE THEME
+============================================================ */
+html { scroll-padding-top: 140px; }
+body {
+    margin:0;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background:#f7faff;
+    color:#222;
+    line-height:1.75;
+    overflow-x:hidden;
+    transition:0.3s ease;
+}
+
+.fade-up { opacity:0; animation:fadeUp .9s ease forwards; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(35px);} to{opacity:1;transform:translateY(0);} }
+
+/* Floating circles */
+.circle {
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle,#ffffffaa,#2760A833);
+    filter:blur(4px);
+}
+.c1 { width:180px;height:180px; top:80px; left:12%; animation:floatAnim 6s infinite; }
+.c2 { width:240px;height:240px; bottom:60px; right:12%; animation:floatAnim 8s infinite; }
+.c3 { width:140px;height:140px; bottom:22%; left:20%; animation:floatAnim 7s infinite; }
+
+@keyframes floatAnim { 
+    0%{transform:translateY(0);} 
+    50%{transform:translateY(-12px);} 
+    100%{transform:translateY(0);} 
+}
+
+/* ============================================================
+   HEADER — GLASS STYLE
+============================================================ */
+header {
+    background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(12px);
+    padding:10px 40px;
+    height:92px;
+    display:flex;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+    box-shadow:0 6px 25px rgba(0,0,0,0.15);
+}
+header img {
+    height:72px; width:72px;
+    border-radius:16px;
+    object-fit:cover;
+    margin-right:20px;
+    cursor:pointer;
+    background:white;
+    box-shadow:0 5px 20px rgba(39,96,168,0.35);
+}
+header h1 {
+    margin:0;
+    font-size:30px;
+    font-weight:800;
+    color:#1F4F89;
+}
+
+/* LANGUAGE BUTTON */
+.lang-btn {
+    padding:10px 20px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 6px 20px rgba(39,96,168,0.35);
+    transition:.25s;
+}
+.lang-btn:hover { transform:translateY(-3px); }
+
+/* ============================================================
+   POPDOWN NAV
+============================================================ */
+#navBar {
+    background:linear-gradient(to right,#2760A8,#1F4F89);
+    width:100%;
+    position:fixed;
+    top:110px; left:0;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    opacity:0;
+    height:0;
+    overflow:hidden;
+    transition:height .25s, opacity .25s;
+    z-index:900;
+    box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+#navBar.visible { opacity:1; height:60px; padding:14px 0; }
+.nav-item {
+    color:white; cursor:pointer;
+    font-size:19px; font-weight:650;
+    transition:0.2s;
+}
+.nav-item:hover { transform:scale(1.18); }
+
+/* ============================================================
+   FIXED BACK BUTTON
+============================================================ */
+.side-back {
+    position:fixed;
+    top:120px; left:0;
+    width:36px; height:70px;
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:0 14px 14px 0;
+    cursor:pointer;
+    z-index:2000;
+    transition:0.25s;
+}
+.side-back:hover { transform:translateX(5px); }
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+#hero {
+    text-align:center;
+    padding:160px 20px 140px;
+    background:linear-gradient(135deg,#eaf1ff,#f7faff 40%,#e2ecff);
+    position:relative;
+    overflow:hidden;
+}
+#hero h1 {
+    font-size:46px;
+    font-weight:900;
+    color:#1F4F89;
+}
+#hero p {
+    font-size:20px;
+    opacity:0.75;
+    max-width:700px;
+    margin:auto;
+}
+
+/* ============================================================
+   CONTENT
+============================================================ */
+.container {
+    max-width:1200px;
+    margin:auto;
+    padding:60px;
+}
+
+.tb-single {
+    width:100%;
+    max-width:900px;
+    display:block;
+    margin:40px auto;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+}
+
+.tb-row {
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin:40px 0;
+    flex-wrap:wrap;
+}
+
+.tb-pair {
+    max-width:48%;
+    width:100%;
+    height:auto;
+    border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    background:#fafafa;
+}
+
+/* =========================
+   T-BAR SPEC TABLE
+========================= */
+.tb-table-wrap {
+    max-width:900px;
+    margin:30px auto 50px;
+    overflow-x:auto;
+}
+
+.tb-table {
+    width:100%;
+    border-collapse:collapse;
+    background:#ffffff;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    font-size:16px;
+}
+
+.tb-table th,
+.tb-table td {
+    padding:14px 16px;
+    text-align:center;
+    border-bottom:1px solid #e5e5e5;
+}
+
+.tb-table th {
+    background:linear-gradient(135deg,#2760A8,#1F4F89);
+    color:#fff;
+    font-weight:700;
+}
+
+.tb-table td:first-child {
+    font-weight:700;
+    background:#f3f6fb;
+}
+
+.tb-table tr:last-child td {
+    border-bottom:none;
+}
+
+/* IMAGE TITLES (NEW — ADD ONLY) */
+.image-title {
+    text-align:center;
+    font-size:28px;
+    font-weight:800;
+    color:#1F4F89;
+    margin:60px 0 20px;
+}
+
+/* FOOTER */
+footer {
+    background:#003066;
+    color:white;
+    text-align:center;
+    padding:28px;
+    margin-top:60px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="side-back" onclick="location.href='index.html'">←</div>
+
+<header>
+    <img src="logo.jpeg" onclick="location.href='index.html'">
+    <div>
+        <h1 data-lang="zh">T-BAR 輕鋼架</h1>
+        <h1 data-lang="en">T-BAR Ceiling System</h1>
+    </div>
+    <div style="margin-left:auto;">
+        <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">English</button>
+    </div>
+</header>
+
+<div id="navBar">
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html'">首頁</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html'">Home</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#features'">產品介紹</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#features'">Products</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#about'">關於我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#about'">About Us</div>
+    <div class="nav-item" data-lang="zh" onclick="location.href='index.html#contact'">聯絡我們</div>
+    <div class="nav-item" data-lang="en" onclick="location.href='index.html#contact'">Contact</div>
+</div>
+
+<div id="hero" class="fade-up">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <h1 data-lang="zh">T-BAR 輕鋼架系列</h1>
+    <h1 data-lang="en">T-BAR Ceiling Suspension Series</h1>
+    <p data-lang="zh">快速施工、耐燃、防腐蝕，搭配各式天花板材完美安裝。</p>
+    <p data-lang="en">Fast-installation suspension system with excellent fire and corrosion resistance.</p>
+</div>
+
+<div class="container fade-up">
+
+<section>
+    <h2 data-lang="zh">產品特性 Features</h2>
+    <h2 data-lang="en">Features</h2>
+    <p data-lang="zh">
+        ■ 輕鋼石膏天花，主副骨架清晰可見。<br>
+        好        ■ 吊桿設計符合 CNS1244 標準。<br>
+        ■ 平整度佳，抗拉強度達 210MPA。<br>
+        ■ 烤漆厚度 20–50 μm。
+    </p>
+    <p data-lang="en">
+        A modular ceiling suspension system known as T-Bar or Tee-grid.
+        Fast installation, high fire-resistance, and supports a wide range of panels.
+    </p>
+</section>
+
+<section>
+    <h2 data-lang="zh">適用範圍 Applications</h2>
+    <h2 data-lang="en">Applications</h2>
+    <p data-lang="zh">適用於辦公室、醫院、教堂與各大型公共建築。</p>
+    <p data-lang="en">Ideal for offices, hospitals, churches, and various large public areas.</p>
+</section>
+
+<h2 class="image-title">主架 Main Runner</h2>
+<img src="tb1.png" class="tb-single">
+
+<p style="
+    text-align:center;
+    font-size:15px;
+    color:#555;
+    margin-top:5px;
+">
+    上方示意圖為38-24規格
+</p>
+
+<div class="tb-table-wrap">
+    <table class="tb-table">
+        <tr>
+            <th></th>
+            <th>2尺</th>
+            <th>4尺</th>
+            <th>8尺</th>
+            <th>12尺</th>
+        </tr>
+        <tr>
+            <td>平接</td>
+            <td>28-24</td>
+            <td>28-24</td>
+            <td>38-24</td>
+            <td>38-24</td>
+        </tr>
+        <tr>
+            <td>28 抗震</td>
+            <td>28-24</td>
+            <td>28-24</td>
+            <td>38-24</td>
+            <td>38-24</td>
+        </tr>
+        <tr>
+            <td>38 抗震(可沖孔)</td>
+            <td>38-24</td>
+            <td>38-24</td>
+            <td>38-24</td>
+            <td>38-24</td>
+        </tr>
+        <tr>
+            <td>48 抗震(可沖孔)</td>
+            <td>38-24</td>
+            <td>38-24</td>
+            <td>48-24</td>
+            <td>48-24</td>
+        </tr>
+    </table>
+</div>
+
+<h2 class="image-title">副架 Cross Tee</h2>
+<img src="tb2.png" class="tb-single">
+
+<h2 class="image-title">收邊飾條 Perimeter Trim</h2>
+<img src="tb3.png" class="tb-single">
+
+<div class="tb-row">
+    <img src="tb4.png" class="tb-pair">
+    <img src="tb5.png" class="tb-pair">
+</div>
+
+<div class="tb-row">
+    <img src="tb6.png" class="tb-pair">
+    <img src="tb7.png" class="tb-pair">
+</div>
+
+<div class="tb-row">
+    <img src="tb8.png" class="tb-pair">
+    <img src="tb9.png" class="tb-pair">
+</div>
+
+</div>
+
+<footer>
+    <p data-lang="zh">© 2025 承閎股份有限公司 版權所有</p>
+    <p data-lang="en">© 2025 ChangHun Steel Inc. All Rights Reserved.</p>
+</footer>
+
+<script>
+let currentLang="zh";
+function applyLanguage(lang){
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+        el.style.display = (el.getAttribute("data-lang")===lang) ? "" : "none";
+    });
+}
+function toggleLanguage(){
+    currentLang = currentLang==="zh" ? "en" : "zh";
+    document.getElementById("langBtn").innerText =
+        currentLang==="zh" ? "English" : "中文";
+    applyLanguage(currentLang);
+}
+document.addEventListener("DOMContentLoaded",()=>applyLanguage("zh"));
+
+window.addEventListener("DOMContentLoaded",()=>{
+    const header=document.querySelector("header");
+    const navBar=document.getElementById("navBar");
+    let hover=false;
+    function show(){ navBar.classList.add("visible"); }
+    function hide(){ setTimeout(()=>{ if(!hover) navBar.classList.remove("visible"); },150); }
+    header.addEventListener("mouseenter",()=>{ hover=true; show(); });
+    header.addEventListener("mouseleave",()=>{ hover=false; hide(); });
+    navBar.addEventListener("mouseenter",()=>{ hover=true; show(); });
+    navBar.addEventListener("mouseleave",()=>{ hover=false; hide(); });
+});
+</script>
+
+</body>
+</html>
