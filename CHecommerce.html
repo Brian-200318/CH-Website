@@ -298,6 +298,26 @@ footer {
     padding:28px;
     margin-top:60px;
 }
+
+.form-message{
+    margin-top:14px;
+    padding:12px 14px;
+    border-radius:12px;
+    font-size:14px;
+    display:none;
+}
+.form-message.success{
+    display:block;
+    background:#eef8f1;
+    color:#1f6b37;
+    border:1px solid #c9e9d2;
+}
+.form-message.error{
+    display:block;
+    background:#fff1f1;
+    color:#a12b2b;
+    border:1px solid #f0c7c7;
+}
 </style>
 </head>
 
@@ -342,21 +362,21 @@ footer {
 <div class="card">
     <h3>基本資料</h3>
     <label>公司名稱及聯絡人 *</label>
-    <input type="text" required>
+    <input type="text" id="companyContact" name="companyContact" required>
 
     <label>回覆電話號碼 / 電子郵件 *</label>
-    <input type="text" required>
+    <input type="text" id="contactInfo" name="contactInfo" required>
 </div>
 
 <!-- 產品類型 -->
 <div class="card">
     <h3>產品類型</h3>
 
-    <label><input type="checkbox" value="partition" onchange="updateOptions()"> 隔間輕鋼架</label>
-    <label><input type="checkbox" value="accessory" onchange="updateOptions()"> 隔間輕鋼架－配件</label>
-    <label><input type="checkbox" value="tbar" onchange="updateOptions()"> T-Bar 輕鋼架</label>
-    <label><input type="checkbox" value="dark" onchange="updateOptions()"> 暗架天花系列</label>
-    <label><input type="checkbox" value="flow" onchange="updateOptions()"> 流明天花系列</label>
+    <label><input type="checkbox" name="productType" value="partition" onchange="updateOptions()"> 隔間輕鋼架</label>
+    <label><input type="checkbox" name="productType" value="accessory" onchange="updateOptions()"> 隔間輕鋼架－配件</label>
+    <label><input type="checkbox" name="productType" value="tbar" onchange="updateOptions()"> T-Bar 輕鋼架</label>
+    <label><input type="checkbox" name="productType" value="dark" onchange="updateOptions()"> 暗架天花系列</label>
+    <label><input type="checkbox" name="productType" value="flow" onchange="updateOptions()"> 流明天花系列</label>
 </div>
 
 <!-- 產品選項 -->
@@ -371,36 +391,39 @@ footer {
 <div class="card">
     <h3>交貨日期</h3>
     <label>請選擇預計交貨日期 *</label>
-    <input type="date" id="deliveryDate" required>
+    <input type="date" id="deliveryDate" name="deliveryDate" required>
 </div>
 
 <div class="card">
-    <button type="submit" class="btn">送出報價申請</button>
+    <button type="submit" class="btn" id="submitBtn">送出報價申請</button>
+    <div id="formMessage" class="form-message"></div>
 </div>
 
 </form>
 
 <script>
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoWf2rv06F56orh5rtETWlgQW8bEvrg2DVs7kKYeuGI7PmuOuIqFgdFgaWpf2_aSmgmw/exec";
 
 /* =============================
    Thickness HTML
 ============================= */
 
-function thicknessHTML(){
+function thicknessHTML(parentLabel){
     return `
         <div class="sub-section">
             <strong>厚度</strong>
-            <label><input type="checkbox"> GA 24</label>
-            <label><input type="checkbox"> GA 22</label>
-            <label><input type="checkbox"> GA 20</label>
+            <label><input type="checkbox" data-role="thickness" data-parent-label="${parentLabel}" value="GA 24"> GA 24</label>
+            <label><input type="checkbox" data-role="thickness" data-parent-label="${parentLabel}" value="GA 22"> GA 22</label>
+            <label><input type="checkbox" data-role="thickness" data-parent-label="${parentLabel}" value="GA 20"> GA 20</label>
         </div>
     `;
 }
 
 function toggleThickness(checkbox){
     const container = checkbox.parentElement.nextElementSibling;
+    const parentLabel = checkbox.dataset.label || checkbox.value || checkbox.parentElement.textContent.trim();
     if(checkbox.checked){
-        container.innerHTML = thicknessHTML();
+        container.innerHTML = thicknessHTML(parentLabel);
     } else {
         container.innerHTML = "";
     }
@@ -409,7 +432,7 @@ function toggleThickness(checkbox){
 function specBlock(label){
     return `
         <label>
-            <input type="checkbox" onchange="toggleThickness(this)">
+            <input type="checkbox" data-role="spec-item" data-label="${label}" value="${label}" onchange="toggleThickness(this)">
             ${label}
         </label>
         <div class="sub-section thickness-area"></div>
@@ -425,12 +448,12 @@ const level1HTML = `
 
 <h4>請選擇立柱類型</h4>
 
-<label><input type="checkbox" value="c" onchange="showSpec()"> C型立柱</label>
-<label><input type="checkbox" value="h" onchange="showSpec()"> H型立柱</label>
-<label><input type="checkbox" value="ch" onchange="showSpec()"> C H型立柱</label>
-<label><input type="checkbox" value="u" onchange="showSpec()"> U型上下槽</label>
-<label><input type="checkbox" value="j" onchange="showSpec()"> J型高低槽</label>
-<label><input type="checkbox" value="cf" onchange="showSpec()"> C F立柱</label>
+<label><input type="checkbox" data-role="partition-type" value="c" onchange="showSpec()"> C型立柱</label>
+<label><input type="checkbox" data-role="partition-type" value="h" onchange="showSpec()"> H型立柱</label>
+<label><input type="checkbox" data-role="partition-type" value="ch" onchange="showSpec()"> C H型立柱</label>
+<label><input type="checkbox" data-role="partition-type" value="u" onchange="showSpec()"> U型上下槽</label>
+<label><input type="checkbox" data-role="partition-type" value="j" onchange="showSpec()"> J型高低槽</label>
+<label><input type="checkbox" data-role="partition-type" value="cf" onchange="showSpec()"> C F立柱</label>
 
 <div id="specSection" class="sub-section"></div>
 
@@ -509,40 +532,40 @@ ${specBlock("125/35×35 mm")}
 
 accessory: `
 <strong>隔間輕鋼架－配件</strong>
-<label><input type="checkbox"> 11筋擴張網 2尺 × 8尺</label>
-<label><input type="checkbox"> 平面型磚牆網 100×1220 mm</label>
-<label><input type="checkbox"> L 收邊</label>
-<label><input type="checkbox"> 7 字收邊</label>
-<label><input type="checkbox"> 護腳</label>
+<label><input type="checkbox" data-role="option-item" value="11筋擴張網 2尺 × 8尺"> 11筋擴張網 2尺 × 8尺</label>
+<label><input type="checkbox" data-role="option-item" value="平面型磚牆網 100×1220 mm"> 平面型磚牆網 100×1220 mm</label>
+<label><input type="checkbox" data-role="option-item" value="L 收邊"> L 收邊</label>
+<label><input type="checkbox" data-role="option-item" value="7 字收邊"> 7 字收邊</label>
+<label><input type="checkbox" data-role="option-item" value="護腳"> 護腳</label>
 `,
 
 /* ===== Other Product Types ===== */
 
 tbar: `
 <strong>T-Bar 輕鋼架</strong>
-<label><input type="checkbox"> T-Bar 平接 24×38/28 mm</label>
-<label><input type="checkbox"> T-Bar 平接抗震 28 型 24×38/28 mm</label>
-<label><input type="checkbox"> T-Bar 平接抗震 38 型 24×38/28 mm</label>
-<label><input type="checkbox"> T-Bar 平接抗震 48 型 24×48/28 mm</label>
+<label><input type="checkbox" data-role="option-item" value="T-Bar 平接 24×38/28 mm"> T-Bar 平接 24×38/28 mm</label>
+<label><input type="checkbox" data-role="option-item" value="T-Bar 平接抗震 28 型 24×38/28 mm"> T-Bar 平接抗震 28 型 24×38/28 mm</label>
+<label><input type="checkbox" data-role="option-item" value="T-Bar 平接抗震 38 型 24×38/28 mm"> T-Bar 平接抗震 38 型 24×38/28 mm</label>
+<label><input type="checkbox" data-role="option-item" value="T-Bar 平接抗震 48 型 24×48/28 mm"> T-Bar 平接抗震 48 型 24×48/28 mm</label>
 `,
 
 dark: `
 <strong>暗架天花系列</strong>
-<label><input type="checkbox"> 大百葉 8/12尺 26GA</label>
-<label><input type="checkbox"> 大百葉 8/10/12尺 25GA</label>
-<label><input type="checkbox"> 大百葉 8/10/12尺 24GA</label>
-<label><input type="checkbox"> 百葉支撐架 8/10尺 22GA 36×19×36mm</label>
-<label><input type="checkbox"> 百葉支撐架 8/10尺 22GA 32×22×32mm</label>
+<label><input type="checkbox" data-role="option-item" value="大百葉 8/12尺 26GA"> 大百葉 8/12尺 26GA</label>
+<label><input type="checkbox" data-role="option-item" value="大百葉 8/10/12尺 25GA"> 大百葉 8/10/12尺 25GA</label>
+<label><input type="checkbox" data-role="option-item" value="大百葉 8/10/12尺 24GA"> 大百葉 8/10/12尺 24GA</label>
+<label><input type="checkbox" data-role="option-item" value="百葉支撐架 8/10尺 22GA 36×19×36mm"> 百葉支撐架 8/10尺 22GA 36×19×36mm</label>
+<label><input type="checkbox" data-role="option-item" value="百葉支撐架 8/10尺 22GA 32×22×32mm"> 百葉支撐架 8/10尺 22GA 32×22×32mm</label>
 `,
 
 flow: `
 <strong>流明天花系列</strong>
-<label><input type="checkbox"> 方格網 5×5 (黑/白)</label>
-<label><input type="checkbox"> 方格網 3×3 (黑/白)</label>
-<label><input type="checkbox"> 菱形網 603×603 (黑/白)</label>
-<label><input type="checkbox"> 菱形網 603×603 (紅)</label>
-<label><input type="checkbox"> 魚形網 603×603 (黑/白)</label>
-<label><input type="checkbox"> 蜂巢網 603×603 (黑/白)</label>
+<label><input type="checkbox" data-role="option-item" value="方格網 5×5 (黑/白)"> 方格網 5×5 (黑/白)</label>
+<label><input type="checkbox" data-role="option-item" value="方格網 3×3 (黑/白)"> 方格網 3×3 (黑/白)</label>
+<label><input type="checkbox" data-role="option-item" value="菱形網 603×603 (黑/白)"> 菱形網 603×603 (黑/白)</label>
+<label><input type="checkbox" data-role="option-item" value="菱形網 603×603 (紅)"> 菱形網 603×603 (紅)</label>
+<label><input type="checkbox" data-role="option-item" value="魚形網 603×603 (黑/白)"> 魚形網 603×603 (黑/白)</label>
+<label><input type="checkbox" data-role="option-item" value="蜂巢網 603×603 (黑/白)"> 蜂巢網 603×603 (黑/白)</label>
 `
 };
 
@@ -553,7 +576,7 @@ flow: `
 function updateOptions(){
 
     const container = document.getElementById("optionsContainer");
-    const selected = document.querySelectorAll('#quotationForm > .card input[type="checkbox"][value]:checked');
+    const selected = document.querySelectorAll('#quotationForm input[name="productType"]:checked');
 
     let html = "";
 
@@ -599,13 +622,104 @@ function showSpec(){
     specContainer.innerHTML = html;
 }
 
+function getCheckedValues(selector){
+    return Array.from(document.querySelectorAll(selector))
+        .filter(el => el.checked)
+        .map(el => el.value);
+}
+
+function getDetailedSelections(){
+    const selections = [];
+
+    document.querySelectorAll('#optionsContainer input[data-role="spec-item"]:checked').forEach(spec => {
+        const parentBlock = spec.closest('label').nextElementSibling;
+        const thicknesses = parentBlock
+            ? Array.from(parentBlock.querySelectorAll('input[data-role="thickness"]:checked')).map(item => item.value)
+            : [];
+
+        selections.push({
+            item: spec.value,
+            thickness: thicknesses
+        });
+    });
+
+    document.querySelectorAll('#optionsContainer input[data-role="option-item"]:checked').forEach(item => {
+        selections.push({
+            item: item.value,
+            thickness: []
+        });
+    });
+
+    return selections;
+}
+
+function setFormMessage(message, type){
+    const formMessage = document.getElementById("formMessage");
+    formMessage.className = `form-message ${type}`;
+    formMessage.textContent = message;
+}
+
+function formatSelectionsForSheet(selections){
+    if(!selections.length) return "";
+    return selections.map(selection => {
+        if(selection.thickness && selection.thickness.length){
+            return `${selection.item}｜厚度: ${selection.thickness.join(", ")}`;
+        }
+        return selection.item;
+    }).join(" / ");
+}
+
 /* =============================
-   Prevent Submit
+   Submit to Google Apps Script
 ============================= */
 
-document.getElementById("quotationForm").addEventListener("submit", function(e){
+document.getElementById("quotationForm").addEventListener("submit", async function(e){
     e.preventDefault();
-    alert("報價申請已送出（示範版本）");
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    setFormMessage("送出中，請稍候…", "success");
+
+    const productTypes = getCheckedValues('#quotationForm input[name="productType"]:checked');
+    const partitionTypes = getCheckedValues('#optionsContainer input[data-role="partition-type"]:checked');
+    const detailedSelections = getDetailedSelections();
+
+    const payload = {
+        companyContact: document.getElementById("companyContact").value.trim(),
+        contactInfo: document.getElementById("contactInfo").value.trim(),
+        productTypes: productTypes,
+        partitionTypes: partitionTypes,
+        detailedSelections: detailedSelections,
+        deliveryDate: document.getElementById("deliveryDate").value,
+        detailedSelectionsText: formatSelectionsForSheet(detailedSelections),
+        pageSource: "CHecommerce.html",
+        submittedAt: new Date().toISOString()
+    };
+
+    try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const resultText = await response.text();
+
+        if(!response.ok){
+            throw new Error(resultText || "提交失敗");
+        }
+
+        setFormMessage("報價申請已送出，我們會盡快與您聯繫。", "success");
+        this.reset();
+        updateOptions();
+    } catch (error) {
+        console.error(error);
+        setFormMessage("送出失敗，請稍後再試，或直接與我們聯絡。", "error");
+    } finally {
+        submitBtn.disabled = false;
+    }
 });
 
 </script>
