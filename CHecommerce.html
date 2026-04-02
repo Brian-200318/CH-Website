@@ -663,10 +663,10 @@ function formatSelectionsForSheet(selections){
     if(!selections.length) return "";
     return selections.map(selection => {
         if(selection.thickness && selection.thickness.length){
-            return `${selection.item}｜厚度: ${selection.thickness.join(", ")}`;
+            return `${selection.item}（厚度: ${selection.thickness.join(", ")}）`;
         }
         return selection.item;
-    }).join(" / ");
+    }).join("\n");
 }
 
 /* =============================
